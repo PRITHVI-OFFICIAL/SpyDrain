@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert } from "react-native";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
-const backImage = require("../assets/backImage.png");
+import colors from "../colors";
+//const backImage = require("");
 
 export default function Login({ navigation }) {
 
@@ -19,7 +20,7 @@ export default function Login({ navigation }) {
   
   return (
     <View style={styles.container}>
-      <Image source={backImage} style={styles.backImage} />
+      <Text style={{fontSize:40,fontWeight:"bold",textAlign:'center',marginTop: 50,color:"#fff"}} >SPYDRAIN</Text>
       <View style={styles.whiteSheet} />
       <SafeAreaView style={styles.form}>
         <Text style={styles.title}>Log In</Text>
@@ -49,7 +50,7 @@ export default function Login({ navigation }) {
       <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
         <Text style={{color: 'gray', fontWeight: '600', fontSize: 14}}>Don't have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-          <Text style={{color: '#f57c00', fontWeight: '600', fontSize: 14}}> Sign Up</Text>
+          <Text style={{color: '#1C64D1', fontWeight: '600', fontSize: 14}}> Sign Up</Text>
         </TouchableOpacity>
       </View>
       </SafeAreaView>
@@ -60,14 +61,15 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
   },
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: "orange",
+    color: "#1C64D1",
     alignSelf: "center",
     paddingBottom: 24,
+    marginTop: 50,
   },
   input: {
     backgroundColor: "#F6F7FB",
@@ -90,7 +92,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 60,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius : 25,
   },
   form: {
     flex: 1,
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   button: {
-    backgroundColor: '#f57c00',
+    backgroundColor: '#1C64D1',
     height: 58,
     borderRadius: 10,
     justifyContent: 'center',

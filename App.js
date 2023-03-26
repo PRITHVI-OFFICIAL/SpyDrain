@@ -1,3 +1,5 @@
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(["EventEmitter.removeListener"]);
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,6 +10,12 @@ import Login from './screens/Login';
 import Signup from './screens/Signup';
 import Chat from './screens/Chat';
 import Home from './screens/Home';
+import Complaintpage from './screens/Complaintpage';
+import Monitor from './screens/Monitor';
+import Userprofile from "./screens/Userprofile";
+import UltraSonic from "./screens/UltraSonic";
+
+
 
 const Stack = createStackNavigator();
 const AuthenticatedUserContext = createContext({});
@@ -26,6 +34,10 @@ function ChatStack() {
     <Stack.Navigator defaultScreenOptions={Home}>
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='Chat' component={Chat} />
+      <Stack.Screen name='Complaintpage' component={Complaintpage} />
+      <Stack.Screen name='Monitor' component={Monitor} />
+      <Stack.Screen name='Userprofile' component={Userprofile} />
+      <Stack.Screen name='UltraSonic' component={UltraSonic} />
     </Stack.Navigator>
   );
 }
@@ -39,10 +51,11 @@ function AuthStack() {
   );
 }
 
+
 function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
-useEffect(() => {
+ useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = onAuthStateChanged(
       auth,
@@ -51,10 +64,12 @@ useEffect(() => {
         setIsLoading(false);
       }
     );
-// unsubscribe auth listener on unmount
+ // unsubscribe auth listener on unmount
     return unsubscribeAuth;
   }, [user]);
-if (isLoading) {
+
+ if (isLoading) {
+
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size='large' />
@@ -62,9 +77,10 @@ if (isLoading) {
     );
   }
 
-return (
+ return (
     <NavigationContainer>
-      {user ? <ChatStack /> : <AuthStack />}
+      {user ? <ChatStack /> : <AuthStack />} 
+     
     </NavigationContainer>
   );
 }
@@ -74,5 +90,6 @@ export default function App() {
     <AuthenticatedUserProvider>
       <RootNavigator />
     </AuthenticatedUserProvider>
+    
   );
 }

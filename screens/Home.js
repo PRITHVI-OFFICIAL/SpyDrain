@@ -1,53 +1,100 @@
 import React, { useEffect } from "react";
-import { View, TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Text, Image, StyleSheet, SafeAreaView,ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FontAwesome } from '@expo/vector-icons';
 import colors from '../colors';
-import { Entypo } from '@expo/vector-icons';
-const catImageUrl = "https://i.guim.co.uk/img/media/26392d05302e02f7bf4eb143bb84c8097d09144b/446_167_3683_2210/master/3683.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=49ed3252c0b2ffb49cf8b508892e452d";
+import CustomButton from './Btn';
+//import { TextInput } from "react-native-web";
+const catImageUrl = "https://i.pravatar.cc/300";
+import { auth, database } from '../config/firebase'
+import { signOut } from 'firebase/auth';
 
 const Home = () => {
 
     const navigation = useNavigation();
+    //const [text, onChangeText] = React.useState("Enter Your Name");
 
+    
+    
     useEffect(() => {
         navigation.setOptions({
             headerLeft: () => (
-                <FontAwesome name="search" size={24} color={colors.gray} style={{marginLeft: 15}}/>
+                <FontAwesome name="home" size={25} color={'#1C64D1'} style={{marginLeft: 15}}/>
             ),
             headerRight: () => (
-                <Image
-                    source={{ uri: catImageUrl }}
-                    style={{
-                        width: 40,
-                        height: 40,
-                        marginRight: 15,
-                    }}
-                />
-            ),
+                <TouchableOpacity
+                  style={{
+                    marginRight: 10
+                  }}
+                  onPress={() => navigation.navigate('Userprofile')}
+                >
+                  <FontAwesome name="user" size={25} color={'#1C64D1'} style={{marginRight: 10}}/>
+                </TouchableOpacity>
+              )
+            
         });
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity
-                onPress={() => navigation.navigate("Chat")}
-                style={styles.chatButton}
-            >
-                <Entypo name="chat" size={24} color={colors.lightGray} />
-            </TouchableOpacity>
+        
+      <View style={styles.container}>
+        <SafeAreaView style={styles.form}>
+          <Text style={styles.heading}>Home</Text>
+        </SafeAreaView >
+        <View style={{flexDirection: 'row', justifyContent:"space-around" , marginBottom:25 ,textAlign:"center"}}>
+        <CustomButton title="Drainage Monitor" icon="gear" press={() => navigation.navigate('Monitor')}/>
+        <CustomButton  title="GroupChat" icon="group" press={() => navigation.navigate('Chat')}/>
         </View>
+
+        <View style={{flexDirection: 'row', justifyContent:"space-around",marginBottom:25}}>
+        <CustomButton  title="Complaint   Forum" icon="wechat" press={() => navigation.navigate('Complaintpage')}/>
+        <CustomButton title="Employee Details" icon="user"/>
+        </View>
+
+        <View style={{flexDirection: 'row', justifyContent:"space-around",marginBottom:25}}>
+        <CustomButton title="Attendance" icon="address-book"/>
+        <CustomButton title="Health" icon= "plus"/>
+        </View>
+      </View>
     );
     };
-
     export default Home;
-
+    
     const styles = StyleSheet.create({
         container: {
+            backgroundColor: "#fff",
+            //flexDirection:"column",            
+           
+            padding: 10,
+          },
+        container1: {
             flex: 1,
             justifyContent: 'flex-end',
             alignItems: 'flex-end',
-            backgroundColor: "#fff",
+            backgroundColor: "#white",
+            
+        },
+        input: {
+            height: 40,
+            margin: 12,
+            borderWidth: 1,
+            padding: 10,
+            borderColor: colors.primary,
+            placeholder:"Enter the Details",
+            borderRadius: 10,
+          },
+        form :{
+            textAlign: "center",
+            justifyContent: "space-around",
+            //flexDirection:"column", 
+        },
+        heading:{
+            fontSize:20, 
+            marginTop:10,
+            marginBottom:20,
+            marginLeft:15, 
+            fontWeight:"bold" , 
+            color:colors.primary,
         },
         chatButton: {
             backgroundColor: colors.primary,

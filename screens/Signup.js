@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, TextInput, Image, SafeAreaView, TouchableOpacity, StatusBar, Alert,fontWeight } from "react-native";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/firebase';
-const backImage = require("../assets/backImage.png");
+import colors from '../colors';
+//const backImage = require("../assets/backImage.png");
 
 export default function Signup({ navigation }) {
 
@@ -19,7 +20,9 @@ const onHandleSignup = () => {
   
   return (
     <View style={styles.container}>
-      <Image source={backImage} style={styles.backImage} />
+      <Text style={{fontSize:40,fontWeight:"bold",textAlign:'center',marginTop: 50,color:"#fff"}} >SPYDRAIN</Text>
+    
+      {/* <Image source={backImage} style={styles.backImage} /> */}
       <View style={styles.whiteSheet} />
       <SafeAreaView style={styles.form}>
         <Text style={styles.title}>Sign Up</Text>
@@ -44,12 +47,12 @@ const onHandleSignup = () => {
         onChangeText={(text) => setPassword(text)}
       />
       <TouchableOpacity style={styles.button} onPress={onHandleSignup}>
-        <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 18}}> Sign Up</Text>
+        <Text style={{fontWeight: 'bold', color: '#fff', fontSize: 18 }}> Sign Up</Text>
       </TouchableOpacity>
       <View style={{marginTop: 20, flexDirection: 'row', alignItems: 'center', alignSelf: 'center'}}>
         <Text style={{color: 'gray', fontWeight: '600', fontSize: 14}}>Don't have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-          <Text style={{color: '#f57c00', fontWeight: '600', fontSize: 14}}> Log In</Text>
+          <Text style={{color: colors.primary, fontWeight: '600', fontSize: 14}}> Log In</Text>
         </TouchableOpacity>
       </View>
       </SafeAreaView>
@@ -60,14 +63,15 @@ const onHandleSignup = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.primary,
   },
   title: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: "orange",
+    color: colors.primary,
     alignSelf: "center",
     paddingBottom: 24,
+    marginTop:80
   },
   input: {
     backgroundColor: "#F6F7FB",
@@ -76,11 +80,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderRadius: 10,
     padding: 12,
-  },
+  }, 
   backImage: {
     width: "100%",
     height: 340,
-    position: "absolute",
+    //position: "absolute",
     top: 0,
     resizeMode: 'cover',
   },
@@ -91,14 +95,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#fff',
     borderTopLeftRadius: 60,
+    borderTopRightRadius:60,
+    
   },
   form: {
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: 30,
+    position: 'relative',
   },
   button: {
-    backgroundColor: '#f57c00',
+    backgroundColor: colors.primary,
     height: 58,
     borderRadius: 10,
     justifyContent: 'center',
